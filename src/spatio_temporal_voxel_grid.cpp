@@ -144,6 +144,13 @@ void SpatioTemporalVoxelGrid::ClearFrustums(const \
                                                           it->_min_z_in_m,
                                                           it->_max_z_in_m);
     }
+    else if (it->_model_type == CYLINDER)
+    {
+      frustum = new geometry::CylinderFrustum(it->_vertical_fov_in_rad,
+                                                          it->_horizontal_fov_in_rad,
+                                                          it->_min_z_in_m,
+                                                          it->_max_z_in_m);
+    }
     else
     {
       // add else if statement for each implemented model

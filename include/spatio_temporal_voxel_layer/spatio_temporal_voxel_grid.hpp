@@ -65,6 +65,7 @@
 #include <spatio_temporal_voxel_layer/frustum_models/depth_camera_frustum.hpp>
 #include <spatio_temporal_voxel_layer/frustum_models/three_dimensional_lidar_frustum.hpp>
 #include <spatio_temporal_voxel_layer/frustum_models/vlp16_deadzone_frustum.hpp>
+#include <spatio_temporal_voxel_layer/frustum_models/cylinder_frustum.hpp>
 // Mutex
 #include <boost/thread/mutex.hpp>
 #include <boost/interprocess/sync/scoped_lock.hpp>

@@ -295,35 +295,25 @@ bool ThreeDimensionalLidarFrustum::IsInside(const openvdb::Vec3d &pt)
 /*****************************************************************************/
 {
 
-  /*/ Unrotated Cylinder
-  float local_x = pt[0] - _position[0];
-  float local_y = pt[1] - _position[1];
-  float radial_distance = sqrt((local_x * local_x) + (local_y * local_y));
+  Eigen::Vector3d point_in_global_frame(pt[0], pt[1], pt[2]);
+  Eigen::Vector3d point_in_vlp_frame = point_in_global_frame - _position;
 
-  if (radial_distance > (3))
+
+  double radial_distance = sqrt((point_in_vlp_frame[0] * point_in_vlp_frame[0]) + (point_in_vlp_frame[1] * point_in_vlp_frame[1]));
+
+  // Check if inside frustum valid range
+  if (radial_distance > _max_d || radial_distance < _min_d)
   {
     return false;
   }
-  /*/
 
-  //VLP Frustum
-  double local_x = pt[0] - _position[0];
-  double local_y = pt[1] - _position[1];
-  // float local_z = pt[2] - _position[2];
-
-  double radial_distance = sqrt( (local_x * local_x) + (local_y * local_y) );
-
-  // Keep if inside minimum distance or beyond maximum range)
-  if (radial_distance > _max_d || radial_distance < _min_d )
+  #define CONEPADDING 0.05   //This value shifts the frustum "cone" outwards without shifting its angle.
+ 
+  // // Check if inside frustum valid vFOV
+  if (atan((fabs(point_in_vlp_frame[2]) - CONEPADDING) / radial_distance) > _vFOVhalf)
   {
     return false;
   }
-  
-  // Keep if outside vFOV
-  if (fabs(atan((pt[2] - _position[2])/radial_distance)) > _vFOVhalf)
-  {
-    return false;
-  } 
 
   return true;
 }

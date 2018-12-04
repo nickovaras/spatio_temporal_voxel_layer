@@ -50,7 +50,8 @@ enum ModelType
 {
   DEPTH_CAMERA = 0,
   THREE_DIMENSIONAL_LIDAR = 1,
-  VLP16_DEADZONE = 2
+  VLP16_DEADZONE = 2,
+  CYLINDER = 3
 };
 
 namespace observation
