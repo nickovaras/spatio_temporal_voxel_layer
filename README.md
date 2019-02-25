@@ -39,6 +39,7 @@ Below is an example of instantaneous decay, where readings in frustum are accele
 ![ezgif com-video-to-gif 3](https://user-images.githubusercontent.com/14944147/37127014-cacc1d1c-2241-11e8-8c2e-6ff7341333c9.gif)
 
 ![vlp16](https://github.com/nickovaras/gifs/blob/master/follow.gif?raw=true)
+
 ![vlp16-2](https://github.com/nickovaras/gifs/blob/master/stationary.gif?raw=true)
 
 ## Local Costmap
