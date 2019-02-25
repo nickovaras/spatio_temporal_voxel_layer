@@ -38,6 +38,9 @@ Below is an example of instantaneous decay, where readings in frustum are accele
 
 ![ezgif com-video-to-gif 3](https://user-images.githubusercontent.com/14944147/37127014-cacc1d1c-2241-11e8-8c2e-6ff7341333c9.gif)
 
+![vlp16](https://github.com/nickovaras/gifs/blob/master/follow.gif?raw=true)
+![vlp16-2](https://github.com/nickovaras/gifs/blob/master/stationary.gif?raw=true)
+
 ## Local Costmap
 This package utilizes all of the information coming in from the robot before the decay time for the local costmap. Rather than having a defined, discrete spatial barrier for the local planner to operate in, it instead relies on the user configuration of the layer to have a short decay time of voxels (1-30 seconds) so that you only plan in relavent space. This was a conscious design requirement since frequently the local planner should operate with more information than other times when the speed is greater or slower. This natively implements dynamic costmap scaling for speed.
 
