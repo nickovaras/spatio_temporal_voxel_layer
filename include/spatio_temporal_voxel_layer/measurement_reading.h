@@ -68,7 +68,7 @@ struct MeasurementReading
   MeasurementReading(geometry_msgs::Point& origin, pcl::PointCloud<pcl::PointXYZ> cloud, \
             double obstacle_range, double min_z, double max_z, double vFOV,
             double vFOVPadding, double hFOV, double decay_acceleration, bool marking,
-            bool clearing, ModelType model_type) :
+            bool clearing, ModelType model_type, bool enabled) :
   /*****************************************************************************/
                                       _origin(origin),                                   \
                                       _cloud(new pcl::PointCloud<pcl::PointXYZ>(cloud)), \
@@ -81,7 +81,8 @@ struct MeasurementReading
                                       _decay_acceleration(decay_acceleration),           \
                                       _marking(marking),                                 \
                                       _clearing(clearing),                               \
-                                      _model_type(model_type)
+                                      _model_type(model_type),
+                                      _enabled(enabled)
   {
   }
 
@@ -108,7 +109,8 @@ struct MeasurementReading
                              _clearing(obs._clearing),                                  \
                              _orientation(obs._orientation),                            \
                              _decay_acceleration(obs._decay_acceleration),              \
-                             _model_type(obs._model_type)
+                             _model_type(obs._model_type),
+                             _enabled(obs._enabled)
   {
   }
 
@@ -118,6 +120,7 @@ struct MeasurementReading
   double _obstacle_range_in_m, _min_z_in_m, _max_z_in_m;
   double _vertical_fov_in_rad, _vertical_fov_padding_in_m, _horizontal_fov_in_rad;
   double _marking, _clearing, _decay_acceleration;
+  bool _enabled;
   ModelType _model_type;
 
 };

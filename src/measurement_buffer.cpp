@@ -147,6 +147,7 @@ void MeasurementBuffer::BufferPCLCloud(const \
     _observation_list.front()._clearing = _clearing;
     _observation_list.front()._marking = _marking;
     _observation_list.front()._model_type = _model_type;
+    _observation_list.front()._enabled = _enabled;
 
     if (_clearing && !_marking)
     {

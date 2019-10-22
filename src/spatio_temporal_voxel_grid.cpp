@@ -122,33 +122,35 @@ void SpatioTemporalVoxelGrid::ClearFrustums(const \
                                                   clearing_readings.begin();
   for (it; it != clearing_readings.end(); ++it)
   {
-    geometry::Frustum* frustum;
-    if (it->_model_type == DEPTH_CAMERA)
+    if(it->_enabled)
     {
-      frustum = new geometry::DepthCameraFrustum(it->_vertical_fov_in_rad,
-                                                 it->_horizontal_fov_in_rad,
-                                                 it->_min_z_in_m,
-                                                 it->_max_z_in_m);
+      geometry::Frustum* frustum;
+      if (it->_model_type == DEPTH_CAMERA)
+      {
+        frustum = new geometry::DepthCameraFrustum(it->_vertical_fov_in_rad,
+                                                  it->_horizontal_fov_in_rad,
+                                                  it->_min_z_in_m,
+                                                  it->_max_z_in_m);
+      }
+      else if (it->_model_type == THREE_DIMENSIONAL_LIDAR)
+      {
+        frustum = new geometry::ThreeDimensionalLidarFrustum( \
+                                                      it->_vertical_fov_in_rad,
+                                                      it->_vertical_fov_padding_in_m,
+                                                      it->_horizontal_fov_in_rad,
+                                                      it->_min_z_in_m,
+                                                      it->_max_z_in_m);
+      }
+      else
+      {
+        // add else if statement for each implemented model
+        delete frustum;
+        continue;
+      }
+      frustum->SetPosition(it->_origin);
+      frustum->SetOrientation(it->_orientation);
+      frustum->TransformModel();
     }
-    else if (it->_model_type == THREE_DIMENSIONAL_LIDAR)
-    {
-      frustum = new geometry::ThreeDimensionalLidarFrustum( \
-                                                    it->_vertical_fov_in_rad,
-                                                    it->_vertical_fov_padding_in_m,
-                                                    it->_horizontal_fov_in_rad,
-                                                    it->_min_z_in_m,
-                                                    it->_max_z_in_m);
-    }
-    else
-    {
-      // add else if statement for each implemented model
-      delete frustum;
-      continue;
-    }
-
-    frustum->SetPosition(it->_origin);
-    frustum->SetOrientation(it->_orientation);
-    frustum->TransformModel();
     obs_frustums.emplace_back(frustum, it->_decay_acceleration);
   }
   TemporalClearAndGenerateCostmap(obs_frustums);
